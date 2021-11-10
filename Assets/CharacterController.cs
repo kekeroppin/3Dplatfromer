@@ -4,23 +4,27 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    public float maxSpeed = 0.5f;
+    public float maxSpeed = 1.0f;
     float rotation = 0.0f;
     float camRotation = 0.0f;
     GameObject cam;
-    public float rotationSpeed = 1.0f;
-    public float camRotationSpeed = 1.0f;
+    Rigidbody myRigidbody;
+    public float rotationSpeed = 2.0f;
+    public float camRotationSpeed = 1.5f;
+
+    
     // Start is called before the first frame update
     void Start()
     {
         cam = GameObject.Find("Main Camera");
+        myRigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = transform.position + (transform.forward * Input.GetAxis("Vertical") * maxSpeed);
-        transform.position = transform.position + (transform.right * Input.GetAxis("Horizontal") * maxSpeed);
+        Vector3 newVelocity = transform.forward * Input.GetAxis("Vertical") * maxSpeed + (transform.right * Input.GetAxis ("Horizontal") * maxSpeed);
+        myRigidbody.velocity = new Vector3(newVelocity.x, myRigidbody.velocity.y, newVelocity.z);
         rotation = rotation + Input.GetAxis("Mouse X") * rotationSpeed;
         transform.rotation = Quaternion.Euler(new Vector3(0.0f, rotation, 0.0f));
 
