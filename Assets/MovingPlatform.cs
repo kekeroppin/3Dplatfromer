@@ -8,7 +8,7 @@ public class MovingPlatform : MonoBehaviour
     public Transform myStartPoint;
     public Transform myEndPoint;
 
-    public float speed;
+    float speed = 0.3f;
 
     bool isReversing = false;
     // Start is called before the first frame update
